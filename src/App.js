@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+// in src/App.js
+import * as React from "react";
+import simpleRestProvider from 'ra-data-simple-rest';
+import { Admin, Resource, ListGuesser } from 'react-admin';
+import { createMuiTheme } from '@material-ui/core/styles';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark', // Switching the dark mode on is a single property value change.
+  },
+});
+
+const dataProvider = simpleRestProvider('https://hive.engr.usfca.edu/api/v1');
+const App = () => (
+  <Admin theme={theme} dataProvider={dataProvider}>
+    <Resource name="tools" list={ListGuesser} />
+  </Admin>
+);
 
 export default App;
